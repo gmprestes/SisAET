@@ -17,12 +17,15 @@
             return;
         }
 
-        var httpRequest = $http({
+        $http({
             method: 'POST',
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
             url: '/api/login/AlterarSenha',
-            data: { atual: $scope.atual, nova: $scope.nova }
+            data: { atual: $scope.atual, nova: $scope.nova },
+            headers: {
+              'Authorization': _token,
+            }
         }).success(function (data, status) {
             console.log(data);
             if (data[0] == true) {
@@ -42,8 +45,11 @@ function AlterarSenha(senha) {
         type: "GET",
         contentType: 'application/json; charset=utf-8',
         dataType: "json",
-        url: '/api/login/AlterarSenha2?nova=' + senha
-        // data: { nova: JSON.stringify(senha) }
+        url: '/api/login/AlterarSenha',
+        headers: {
+          'Authorization': _token,
+        },
+      data: { atual: $scope.atual, nova: $scope.nova }
     }).done(function (msg) {
         console.log(msg);
         alert("OK");

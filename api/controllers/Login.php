@@ -74,5 +74,26 @@ class Login
       return true;
     }
 
+    /**
+     * @url POST /login/AlterarSenha
+     *
+     */
+    public function AlterarSenha($data)
+    {
+      $user = ASPNETUser::GetUserById($_SESSION["userid"]);
+
+      if(ASPNETUser::ValidateUser($user["Username"], $data->atual) == true)
+      {
+        ASPNETUser::AlterarSenha($user["Username"], $data->nova);
+
+        $_SESSION["synctoken"] = '';
+        $_SESSION["userid"] = '';
+
+        return array(true, $user["Username"]);
+      }
+      else
+        return array(false, "");
+    }
+
 }
 ?>

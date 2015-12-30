@@ -29,6 +29,28 @@ class ASPNETUser
        return $user;
     }
 
+    public static function AlterarSenha($usuario, $novasenha)
+    {
+            $db = DB::getInstance();
+
+            $user = $db->ASPNETUsers->findOne(array("Username" => $usuario));
+            if(!empty($user))
+            {
+              $password_salt = $user['Salt'];
+              $bytes = mb_convert_encoding($novasenha, 'UTF-16LE');
+              $salt = base64_decode($password_salt);
+              $password = base64_encode(sha1($salt . $bytes, true));
+
+              $update = array('$set' => array("Password" => $password));
+              $db->ASPNETUsers->update(array("Username" => $usuario), $update);
+
+              return true;
+            }
+          else
+            return false;
+    }
+
+
     public static function ValidateUser($usuario, $senha)
     {
             $userOK = false;

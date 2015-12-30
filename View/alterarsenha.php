@@ -14,6 +14,9 @@
     <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
     <!-- SB Admin CSS - Include with every page -->
     <link href="/css/sb-admin.css" rel="stylesheet">
+    <?php
+      require_once "token.php";
+     ?>
 </head>
 <body ng-app="aet">
     <div class="container" ng-controller="AlterarSenhaCtrl">

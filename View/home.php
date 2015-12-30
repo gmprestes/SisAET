@@ -42,16 +42,8 @@
   <!-- MASTER SCRIPT -->
   <script type="text/javascript" src="/Scripts/view/master.js?v=1451410618"></script>
 
-  <?php
-     session_start( );
-     echo '<script>';
-     if (isset($_SESSION['synctoken']) && !empty($_SESSION['synctoken']))
-     echo 'var _token = "' . $_SESSION["synctoken"].'"';
-     else {
-       header("Location: /login");
-       die();
-     }
-     echo '</script>';
+    <?php
+      require_once "token.php";
      ?>
 </head>
 
