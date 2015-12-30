@@ -36,7 +36,7 @@ function LoginCtrl($scope, $http) {
     }).success(function(data, status) {
       console.log(data);
       if (data == "true")
-        window.location = "/meuperfil";
+        window.location = "/#/meuperfil";
       else {
         $("#txtNome").addClass("has-error");
         $("#txtPass").addClass("has-error");

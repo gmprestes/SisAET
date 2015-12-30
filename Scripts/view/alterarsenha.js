@@ -27,7 +27,7 @@
             console.log(data);
             if (data[0] == true) {
                 alert('Senha alterada com sucesso. Você será redirecionada a pagina de login.');
-                window.location = _baseURL + '/login?n=' + data[1];
+                window.location = '/login?n=' + data[1];
             }
             else {
                 alert('Ocorreu um erro ao alterar sua senha. Possivelmente sua senha atual esta errada.');

@@ -1,7 +1,7 @@
 
                 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0" ng-controller="MasterCtrl">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="/">Sistema AET</a>
+                        <a class="navbar-brand" href="/#/meuperfil">Sistema AET</a>
                     </div>
                     <!-- /.navbar-header -->
 

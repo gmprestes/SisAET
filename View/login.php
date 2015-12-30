@@ -56,7 +56,7 @@
   <script type="text/javascript" src="/Scripts/utils/helpers.js"></script>
   <script type="text/javascript" src="/Scripts/utils/app.js"></script>
   <!-- Page Script -->
-  <script type="text/javascript" src="/Scripts/view/login.js"></script>
+  <script type="text/javascript" src="/Scripts/view/login.js?v=1451502687"></script>
 </body>
 
 </html>

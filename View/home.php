@@ -40,18 +40,18 @@
   <script src="/js/jquery.cookie.js"></script>
 
   <!-- MASTER SCRIPT -->
-  <script type="text/javascript" src="/Scripts/view/master.js?v=1451410616"></script>
+  <script type="text/javascript" src="/Scripts/view/master.js?v=1451410618"></script>
 
   <?php
      session_start( );
      echo '<script>';
-     if (isset($_SESSION['synctoken']))
+     if (isset($_SESSION['synctoken']) && !empty($_SESSION['synctoken']))
      echo 'var _token = "' . $_SESSION["synctoken"].'"';
      else {
-       echo 'var _token = ""';
+       header("Location: /login");
+       die();
      }
      echo '</script>';
-     echo $_SESSION["userid"];
      ?>
 </head>
 
