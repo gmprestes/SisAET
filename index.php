@@ -6,8 +6,10 @@ require 'SimplePHPRoute.php';
 $route = new SimplePHPRoute('/404', true);
 
 // Put your routes above
-$route->add('/', 'admin/home.php');
-$route->add('/alterarsenha', 'admin/alterarsenha.php');
+$route->add('/', 'View/home.php');
+$route->add('/meuperfil', 'View/home.php');
+$route->add('/alterarsenha', 'View/alterarsenha.php');
+$route->add('/login', 'View/login.php');
 //$route->add('/home', 'admin/home2.php');
 //$route->add('/contact/{param}', 'contact.php');
 //$route->add('/about', 'about.php');
