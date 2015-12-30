@@ -51,6 +51,7 @@
        echo 'var _token = ""';
      }
      echo '</script>';
+     echo $_SESSION["userid"];
      ?>
 </head>
 

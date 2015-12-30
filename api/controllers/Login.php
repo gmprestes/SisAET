@@ -27,15 +27,16 @@ class Login
       $senha =  $data->senha;
 
       session_start( );
-      $h = ASPNETUser::ValidateUser($usuario, $senha);
-      if($h == true)
+      if(ASPNETUser::ValidateUser($usuario, $senha) == true)
       {
       $_SESSION["synctoken"] = uniqid();
-      return $h;
+      $_SESSION["userid"] = ASPNETUser::GetUser($usuario)['_id'];
+      return true;
     }
     else {
       $_SESSION["synctoken"] = '';
-      return $h;
+      $_SESSION["userid"] = '';
+      return false;
     }
 
 

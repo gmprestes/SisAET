@@ -12,6 +12,15 @@ class ASPNETUser
         $this->db = DB::getInstance();
     }
 
+
+    public static function GetUser($usuario)
+    {
+       $db = DB::getInstance();
+        $user = $db->ASPNETUsers->findOne(array("Username" => $usuario));
+
+       return $user;
+    }
+
     public static function ValidateUser($usuario, $senha)
     {
             $userOK = false;
