@@ -16,7 +16,7 @@ class ASPNETUser
     public static function GetUserByName($usuario)
     {
        $db = DB::getInstance();
-        $user = $db->ASPNETUsers->findOne(array("Username" => $usuario));
+      $user = $db->ASPNETUsers->findOne(array("Username" => $usuario));
 
        return $user;
     }

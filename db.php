@@ -19,6 +19,8 @@ class DB
     private $db;
 
     public $ASPNETUsers;
+    public $DtoPessoa;
+
 
     function __construct()
     {
@@ -26,6 +28,8 @@ class DB
         $this->db = $this->connection->aet;
 
         $this->ASPNETUsers = $this->db->ASPNETUsers;
+        $this->DtoPessoa = $this->db->DtoPessoa;
+
     }
 }
 

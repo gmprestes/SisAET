@@ -40,9 +40,9 @@
   <script src="/js/jquery.cookie.js"></script>
 
   <!-- MASTER SCRIPT -->
-  <script type="text/javascript" src="/Scripts/view/master.js?v=1451410618"></script>
+  <script type="text/javascript" src="/Scripts/view/master.js?v=1451931154"></script>
 
-    <?php
+  <?php
       require_once "token.php";
      ?>
 </head>
@@ -50,8 +50,8 @@
 <body>
   <div ng-app="aet">
     <div id="wrapper">
-      <?php
-          require 'View/nav.php';
+        <?php
+          require_once 'View/nav.php';
         ?>
         <div id="page-wrapper">
           <div ng-view>

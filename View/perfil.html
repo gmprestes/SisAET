@@ -155,3 +155,20 @@
       </div>
     </div>
   </div>
+
+  <script>
+    $(function() {
+
+      $(".disable").prop('disabled', true);
+
+      $(".numbers").SomenteNumeros();
+
+      $(".money").Decimal();
+
+      $(".data").datepicker({
+        format: 'dd/mm/yyyy'
+      });
+
+      $(".data").mask("99/99/9999");
+    });
+  </script>

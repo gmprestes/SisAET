@@ -1,5 +1,4 @@
-﻿
-function MasterCtrl($scope, $http) {
+﻿function MasterCtrl($scope, $http) {
 
   $scope.username = '';
   $scope.isAdmin = false;
