@@ -31,6 +31,21 @@ class Login
     }
 
     /**
+     * @url GET /login/CurrentUserIsAdmin
+     *
+     */
+    public function CurrentUserIsAdmin()
+    {
+        $user = ASPNETUser::GetUserById($_SESSION["userid"]);
+        if(!empty($user))
+        {
+          return $user["Comment"] == "ADMIN";
+        }
+        else
+          return false;
+    }
+
+    /**
      * @url POST /login/Auth
      * @noAuth
      */

@@ -1,4 +1,5 @@
-﻿function MasterCtrl($scope, $http) {
+﻿
+function MasterCtrl($scope, $http) {
 
   $scope.username = '';
   $scope.isAdmin = false;
@@ -27,7 +28,8 @@
           'Authorization': _token,
         }
       }).success(function(data, status) {
-        if (data == true)
+        console.log('Is admin : ' + data);
+        if (data == "true")
           $scope.isAdmin = true;
       });
     });

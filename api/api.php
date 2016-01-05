@@ -3,6 +3,8 @@
 require_once 'PowerfulAPI.php';
 require_once 'controllers/Login.php';
 require_once 'controllers/Pessoa.php';
+require_once 'controllers/Arquivo.php';
+
 
 
 
@@ -31,5 +33,7 @@ $server = new PowerfulAPI('debug');
 
 $server->addClass('Login');
 $server->addClass('Pessoa');
+$server->addClass('Arquivo');
+
 $server->handle();
 ?>

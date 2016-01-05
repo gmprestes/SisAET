@@ -24,7 +24,7 @@ function LoginCtrl($scope, $http) {
     $('#btnLogin').text("Pocessando...");
     $('#btnLogin').prop("disabled", true);
 
-    var httpRequest = $http({
+    $http({
       method: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",

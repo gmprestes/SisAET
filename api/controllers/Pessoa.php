@@ -44,8 +44,7 @@ class Pessoa
           $data->pessoa->_id = str_to_mongoid($data->pessoa->_id);
           $data->pessoa->DataNascimento = new MongoDate(str_to_datetime($data->pessoa->DataNascimento));
           $db->DtoPessoa->update(array("UserId" => $_SESSION["userid"]), $data->pessoa);
-            //$user = $data->pessoa;
-          return true;
+          return "Salvo com sucesso";
     }
 
 }

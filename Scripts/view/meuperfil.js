@@ -15,7 +15,7 @@ function MeuPerfilCtrl($scope, $http) {
         'Authorization': _token,
       }
     }).success(function(data, status) {
-      console.log(data);
+      console.log('Buscou user');
       $scope.pessoa = data;
       $scope.tipoComprovanteChange();
       $scope.buscaArquivos();
@@ -50,8 +50,12 @@ function MeuPerfilCtrl($scope, $http) {
       method: 'GET',
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      url: '/api/arquivo/GetAllFilesPerfil'
+      url: '/api/arquivo/GetAllFilesPerfil',
+      headers: {
+        'Authorization': _token,
+      }
     }).success(function(data, status) {
+      console.log('Buscou Files');
       $scope.arquivos = data;
     });
   }
