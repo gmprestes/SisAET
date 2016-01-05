@@ -31,10 +31,14 @@ function MeuPerfilCtrl($scope, $http) {
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
       url: '/api/pessoa/Save',
+      headers: {
+        'Authorization': _token,
+      },
       data: {
-        pessoa: JSON.stringify($scope.pessoa).toString()
+        pessoa: $scope.pessoa
       }
     }).success(function(data, status) {
+      console.log(data);
       $("#bntSalvar").prop("disabled", false);
       $("#bntSalvar").val("Salvar");
       $("#msgSucesso").fadeIn(1500).delay(3000).fadeOut(500);

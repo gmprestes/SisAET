@@ -22,7 +22,10 @@
         method: 'GET',
         contentType: 'application/json; charset=utf-8',
         dataType: "json",
-        url: '/api/login/CurrentUserIsAdmin'
+        url: '/api/login/CurrentUserIsAdmin',
+        headers: {
+          'Authorization': _token,
+        }
       }).success(function(data, status) {
         if (data == true)
           $scope.isAdmin = true;

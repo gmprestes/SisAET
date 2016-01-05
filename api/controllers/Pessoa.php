@@ -25,12 +25,27 @@ class Pessoa
           $user = $db->DtoPessoa->findOne(array("UserId" => $_SESSION["userid"]));
 
           if(!empty($user)) {
-            $user["DataNascimento"] = date('d/m/Y', $user["DataNascimento"]->sec);
+            $user["DataNascimento"] = mgdt_to_string($user["DataNascimento"]);
+            $user["_id"] = mgid_to_string($user["_id"]);
             return $user;
           }
           else {
             return '';
           }
+    }
+
+    /**
+     * @url POST /pessoa/Save
+     *
+     */
+    public function Save($data)
+    {
+          $db = DB::getInstance();
+          $data->pessoa->_id = str_to_mongoid($data->pessoa->_id);
+          $data->pessoa->DataNascimento = new MongoDate(str_to_datetime($data->pessoa->DataNascimento));
+          $db->DtoPessoa->update(array("UserId" => $_SESSION["userid"]), $data->pessoa);
+            //$user = $data->pessoa;
+          return true;
     }
 
 }
