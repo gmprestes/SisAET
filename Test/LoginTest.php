@@ -1,5 +1,5 @@
 <?php
-class StackTest extends PHPUnit_Framework_TestCase
+class LoginTest extends PHPUnit_Framework_TestCase
 {
     public function testEmpty()
     {
