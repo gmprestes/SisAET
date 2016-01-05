@@ -39,7 +39,13 @@ class Arquivo
                 "Verificado" => true,
                 "Aceito" => true));
 
-            $array = iterator_to_array($cursor);
+            $array = array();
+            foreach ($cursor as $doc) {
+              $doc["DataUpload"] = mgdt_to_string($doc["DataUpload"]);
+              $doc["_id"] = mgid_to_string($doc["_id"]);
+              array_push($array,$doc);
+            }
+
             return $array;
     }
 
