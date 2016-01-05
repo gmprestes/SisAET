@@ -3,4 +3,11 @@ php:
   - '5.4'
   - '5.5'
 
-before_script: phpenv config-add config.ini
+# Commands to be run before your environment runs.
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+  - phpenv config-add config.ini
+
+# Commands you want to run that will verify your build.
+script: phpunit
