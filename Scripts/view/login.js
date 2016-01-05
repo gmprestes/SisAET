@@ -47,6 +47,11 @@ function LoginCtrl($scope, $http) {
       $('#btnLogin').prop("disabled", false);
       $('#btnLogin').text("Login");
 
+    }).error(function() {
+      alert("Usuario ou senha invalidos");
+
+      $('#btnLogin').prop("disabled", false);
+      $('#btnLogin').text("Login");
     });
   }
 

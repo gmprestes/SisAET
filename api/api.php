@@ -4,9 +4,17 @@ require_once 'PowerfulAPI.php';
 require_once 'controllers/Login.php';
 require_once 'controllers/Pessoa.php';
 require_once 'controllers/Arquivo.php';
+require_once 'controllers/Cadastro.php';
 
 
+$server = new PowerfulAPI('debug');
 
+$server->addClass('Login');
+$server->addClass('Pessoa');
+$server->addClass('Arquivo');
+$server->addClass('Cadastro');
+
+$server->handle();
 
 date_default_timezone_set("UTC");
 function str_to_datetime($s)
@@ -28,12 +36,4 @@ function mgid_to_string($s)
 {
   return (string) $s;
 }
-
-$server = new PowerfulAPI('debug');
-
-$server->addClass('Login');
-$server->addClass('Pessoa');
-$server->addClass('Arquivo');
-
-$server->handle();
 ?>

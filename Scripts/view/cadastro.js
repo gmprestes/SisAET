@@ -51,8 +51,8 @@
             method: 'POST',
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
-            url: _baseURL + '/request/cadastro/EfetuaCadastro',
-            data: { usuario: $scope.nome, cpf: $scope.cpf, pass: $scope.pass }
+            url: '/api/cadastro/Criar',
+            data: { usuario: $scope.nome, cpf: $scope.cpf, senha: $scope.pass }
         }).success(function (data, status) {
             console.log(data);
             if (data[0] == true) {
@@ -61,7 +61,7 @@
                 $('#btnCad').text('Cadastrar');
 
                 alert(data[1]);
-                window.location = _baseURL + '/login.aspx?n=' + $scope.nome;
+                window.location = '/login?n=' + $scope.nome;
             }
             else {
                 $('#msgErro').html(data[1]);

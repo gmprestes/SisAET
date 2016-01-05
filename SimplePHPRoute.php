@@ -53,6 +53,7 @@ class SimplePHPRoute
 
   public function handle()
   {
+    $params = array();
     $splitUrl = explode('/',strtolower(explode('?',$_SERVER['REQUEST_URI'])[0]));
     foreach ($this->_uri as $key => $value)
     {
@@ -62,6 +63,9 @@ class SimplePHPRoute
           $ok = true;
           foreach ($splitUrl as $index => $item)
           {
+            if($splitValue[$index] == '{param}')
+              array_push($params,$item);
+
             if($splitValue[$index] != '{param}' && $item != $splitValue[$index])
             {
               $ok = false;

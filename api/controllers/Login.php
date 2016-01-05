@@ -1,5 +1,6 @@
 <?php
 
+require_once '../db.php';
 require_once '../Models/ASPNETUser.php';
 
 class Login
@@ -15,16 +16,26 @@ class Login
           return false;
     }
 
+
+        /**
+         * @url GET /
+         * @noAuth
+         */
+        public function Wellcome()
+        {
+          return "Bem vindo a API da AET";
+        }
+
     /**
      * @url GET /login/GetNomePessoaCurrentUser
-     *
      */
     public function GetNomePessoaCurrentUser()
     {
-        $user = ASPNETUser::GetUserById($_SESSION["userid"]);
+        $db = DB::getInstance();
+        $user = $db->DtoPessoa->findOne(array("UserId" => $_SESSION["userid"]));
         if(!empty($user))
         {
-          return $user["Username"];
+          return $user["Nome"];
         }
         else
           return '';
@@ -32,7 +43,6 @@ class Login
 
     /**
      * @url GET /login/CurrentUserIsAdmin
-     *
      */
     public function CurrentUserIsAdmin()
     {
@@ -60,15 +70,15 @@ class Login
 
       if(ASPNETUser::ValidateUser($usuario, $senha) == true)
       {
-      $_SESSION["synctoken"] = uniqid();
-      $_SESSION["userid"] = ASPNETUser::GetUserByName($usuario)['_id'];
-      return true;
-    }
-    else {
-      $_SESSION["synctoken"] = '';
-      $_SESSION["userid"] = '';
-      return false;
-    }
+        $_SESSION["synctoken"] = uniqid();
+        $_SESSION["userid"] = ASPNETUser::GetUserByName($usuario)['_id'];
+        return true;
+      }
+      else {
+        $_SESSION["synctoken"] = '';
+        $_SESSION["userid"] = '';
+        return false;
+      }
 
 
     }
@@ -91,7 +101,6 @@ class Login
 
     /**
      * @url POST /login/AlterarSenha
-     *
      */
     public function AlterarSenha($data)
     {

@@ -18,7 +18,6 @@ class Arquivo
 
     /**
      * @url GET /arquivo/GetAllFilesPerfil
-     *
      */
     public function GetAllFilesPerfil()
     {

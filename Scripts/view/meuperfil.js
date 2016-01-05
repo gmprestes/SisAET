@@ -77,7 +77,7 @@ function MeuPerfilCtrl($scope, $http) {
 
   $scope.baixarArquivo = function(id) {
 
-    var url = _baseURL + '/ajaxarquivos/getfile?id=' + id;
+    var url = '/arquivo/get/' + id;
     downloadFile(guid(), url);
   }
 
