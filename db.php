@@ -19,6 +19,8 @@ class DB
     public $ASPNETUsers;
     public $DtoPessoa;
     public $DtoArquivo;
+    public $DtoSemestre;
+
 
     public function __construct()
     {
@@ -28,5 +30,7 @@ class DB
         $this->ASPNETUsers = $this->db->ASPNETUsers;
         $this->DtoPessoa = $this->db->DtoPessoa;
         $this->DtoArquivo = $this->db->DtoArquivo;
+        $this->DtoSemestre = $this->db->DtoSemestre;
+
     }
 }

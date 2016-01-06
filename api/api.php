@@ -5,13 +5,15 @@ require_once 'controllers/Login.php';
 require_once 'controllers/Pessoa.php';
 require_once 'controllers/Arquivo.php';
 require_once 'controllers/Cadastro.php';
+require_once 'controllers/Semestre.php';
+
 
 $server = new PowerfulAPI('debug');
 
 $server->addClass('Login');
 $server->addClass('Pessoa');
 $server->addClass('Arquivo');
-$server->addClass('Cadastro');
+$server->addClass('Semestre');
 
 $server->handle();
 

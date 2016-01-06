@@ -23,6 +23,12 @@ app.config(function($routeProvider, $locationProvider) {
     .when('/auxilio', {
       templateUrl: '/View/meusauxilios.html'
     })
+    .when('/semestres/list', {
+      templateUrl: '/View/Semestres/list.html'
+    })
+    .when('/semestres/edit/:Id', {
+      templateUrl: '/View/Semestres/edit.html'
+    })
     //.when('/Book/:bookId/ch/:chapterId', {
     //templateUrl: 'chapter.html',
     //controller: 'ChapterController'

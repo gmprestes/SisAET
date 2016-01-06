@@ -44,25 +44,25 @@ class Cadastro
                 $max = $db->DtoPessoa->find()->sort(array('Codigo' => -1))->next()['Codigo'] + 1;
 
                 $p = array(
-            'EmailVerificado' => false,
-            'CadastroVerificado' => false,
-            'NaoAssociado' => false,
-            'Codigo' => $max,
-            'Nome' => $usuario,
-            'Sobrenome' => '',
-            'CPF' => $cpf,
-            'RG' => '',
-            'TituloEleitoral' => '',
-            'DataNascimento' => new MongoDate(),
-            'Email' => $usuario,
-            'Telefone' => '',
-            'Logradouro' => '',
-            'LogradouroNumero' => '',
-            'Complemento' => '',
-            'Bairro' => '',
-            'Cidade' => '',
-            'CEP' => '',
-            'UserId' => mgid_to_string($user['_id']), );
+                  'EmailVerificado' => false,
+                  'CadastroVerificado' => false,
+                  'NaoAssociado' => false,
+                  'Codigo' => $max,
+                  'Nome' => $usuario,
+                  'Sobrenome' => '',
+                  'CPF' => $cpf,
+                  'RG' => '',
+                  'TituloEleitoral' => '',
+                  'DataNascimento' => new MongoDate(),
+                  'Email' => $usuario,
+                  'Telefone' => '',
+                  'Logradouro' => '',
+                  'LogradouroNumero' => '',
+                  'Complemento' => '',
+                  'Bairro' => '',
+                  'Cidade' => '',
+                  'CEP' => '',
+                  'UserId' => mgid_to_string($user['_id']), );
 
                 $db->DtoPessoa->insert($p);
 
