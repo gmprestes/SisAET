@@ -26,6 +26,9 @@ app.config(function($routeProvider, $locationProvider) {
     .when('/semestres/list', {
       templateUrl: '/View/Semestres/list.html'
     })
+    .when('/semestres/edit', {
+      templateUrl: '/View/Semestres/edit.html'
+    })
     .when('/semestres/edit/:Id', {
       templateUrl: '/View/Semestres/edit.html'
     })

@@ -1,7 +1,9 @@
 ﻿
+var _id = window.location.pathname.toString().getRotaID();
+
 function SemestresListCtrl($scope, $http) {
   $scope.init = function() {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
@@ -28,7 +30,7 @@ function SemestresListCtrl($scope, $http) {
   }
 
   $scope.excluirItem = function(id) {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
@@ -47,36 +49,48 @@ function SemestresListCtrl($scope, $http) {
   $scope.init();
 }
 
-function SemestresEditCtrl($scope, $http) {
+function SemestresEditCtrl($scope, $http, $routeParams) {
+
+  //var id = "";
+  //if ($routeParams.Id)
+  var id = $routeParams.Id;
 
   $scope.semestre = new Object();
 
   $scope.init = function() {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/semestre/Get/' + _id
+      url: '/api/semestre/Get/' + id,
+      headers: {
+        'Authorization': _token,
+      }
     }).success(function(data, status) {
+      console.log("Buscou semestre");
+      console.log(data);
       $scope.semestre = data;
     });
   }
 
 
   $scope.saveSemestre = function() {
-    var httpRequest = $http({
+    $http({
       method: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/semestre/Save',
+      url: '/api/semestre/Save',
+      headers: {
+        'Authorization': _token,
+      },
       data: {
-        item: JSON.stringify($scope.semestre).toString()
+        semestre: $scope.semestre
       }
     }).success(function(data, status) {
       if (data == "ERRO")
         alert("Ocorreu um erro ao salvar este item, tente novamente em alguns instantes.");
       else
-        window.location = "/semestres/edit/" + data;
+        window.location = "#/semestres/edit/" + JSON.parse(data);
     });
   }
 
