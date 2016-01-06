@@ -5,17 +5,17 @@ require_once '../Models/ASPNETUser.php';
 
 class Login
 {
-    function authorize()
+    public function authorize()
     {
-      if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-      }
-        if (isset($_SERVER["Authorization"]) && isset($_SESSION['synctoken']))
-          return $_SESSION['synctoken'] == $_SERVER["Authorization"];
-        else
-          return false;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SERVER['Authorization']) && isset($_SESSION['synctoken'])) {
+            return $_SESSION['synctoken'] == $_SERVER['Authorization'];
+        } else {
+            return false;
+        }
     }
-
 
         /**
          * @url GET /
@@ -23,7 +23,7 @@ class Login
          */
         public function Wellcome()
         {
-          return "Bem vindo a API da AET";
+            return 'Bem vindo a API da AET';
         }
 
     /**
@@ -32,13 +32,12 @@ class Login
     public function GetNomePessoaCurrentUser()
     {
         $db = DB::getInstance();
-        $user = $db->DtoPessoa->findOne(array("UserId" => $_SESSION["userid"]));
-        if(!empty($user))
-        {
-          return $user["Nome"];
+        $user = $db->DtoPessoa->findOne(array('UserId' => $_SESSION['userid']));
+        if (!empty($user)) {
+            return $user['Nome'];
+        } else {
+            return '';
         }
-        else
-          return '';
     }
 
     /**
@@ -46,13 +45,12 @@ class Login
      */
     public function CurrentUserIsAdmin()
     {
-        $user = ASPNETUser::GetUserById($_SESSION["userid"]);
-        if(!empty($user))
-        {
-          return $user["Comment"] == "ADMIN";
+        $user = ASPNETUser::GetUserById($_SESSION['userid']);
+        if (!empty($user)) {
+            return $user['Comment'] == 'ADMIN';
+        } else {
+            return false;
         }
-        else
-          return false;
     }
 
     /**
@@ -61,26 +59,24 @@ class Login
      */
     public function Autenticar($data)
     {
-      if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-      }
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
-      $usuario = $data->usuario;
-      $senha =  $data->senha;
+        $usuario = $data->usuario;
+        $senha = $data->senha;
 
-      if(ASPNETUser::ValidateUser($usuario, $senha) == true)
-      {
-        $_SESSION["synctoken"] = uniqid();
-        $_SESSION["userid"] = ASPNETUser::GetUserByName($usuario)['_id'];
-        return true;
-      }
-      else {
-        $_SESSION["synctoken"] = '';
-        $_SESSION["userid"] = '';
-        return false;
-      }
+        if (ASPNETUser::ValidateUser($usuario, $senha) == true) {
+            $_SESSION['synctoken'] = uniqid();
+            $_SESSION['userid'] = ASPNETUser::GetUserByName($usuario)['_id'];
 
+            return true;
+        } else {
+            $_SESSION['synctoken'] = '';
+            $_SESSION['userid'] = '';
 
+            return false;
+        }
     }
 
     /**
@@ -89,14 +85,14 @@ class Login
      */
     public function Sair()
     {
-      if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-      }
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
-      $_SESSION["synctoken"] = '';
-      $_SESSION["userid"] = '';
+        $_SESSION['synctoken'] = '';
+        $_SESSION['userid'] = '';
 
-      return true;
+        return true;
     }
 
     /**
@@ -104,20 +100,17 @@ class Login
      */
     public function AlterarSenha($data)
     {
-      $user = ASPNETUser::GetUserById($_SESSION["userid"]);
+        $user = ASPNETUser::GetUserById($_SESSION['userid']);
 
-      if(ASPNETUser::ValidateUser($user["Username"], $data->atual) == true)
-      {
-        ASPNETUser::AlterarSenha($user["Username"], $data->nova);
+        if (ASPNETUser::ValidateUser($user['Username'], $data->atual) == true) {
+            ASPNETUser::AlterarSenha($user['Username'], $data->nova);
 
-        $_SESSION["synctoken"] = '';
-        $_SESSION["userid"] = '';
+            $_SESSION['synctoken'] = '';
+            $_SESSION['userid'] = '';
 
-        return array(true, $user["Username"]);
-      }
-      else
-        return array(false, "");
+            return array(true, $user['Username']);
+        } else {
+            return array(false, '');
+        }
     }
-
 }
-?>

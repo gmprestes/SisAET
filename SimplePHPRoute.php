@@ -29,87 +29,82 @@
 
 class SimplePHPRoute
 {
-  private $notFoundUrl = '/';
-  private $debug = false;
-  private $_uri = array();
-  private $_method = array();
+    private $notFoundUrl = '/';
+    private $debug = false;
+    private $_uri = array();
+    private $_method = array();
 
-  function __construct($notFoundUrl = null, $debug = null)
-  {
-      if($notFoundUrl != null)
-        $this->notFoundUrl = $notFoundUrl;
-
-        if($debug != null)
-          $this->debug = $debug;
-  }
-
-  public function add($url, $method = null)
-  {
-    $this->_uri[] = '/' . trim($url,'/');
-
-    if($method!= null)
-      $this->_method[] = $method;
-  }
-
-  public function handle()
-  {
-    $params = array();
-    $splitUrl = explode('/',strtolower(explode('?',$_SERVER['REQUEST_URI'])[0]));
-    foreach ($this->_uri as $key => $value)
+    public function __construct($notFoundUrl = null, $debug = null)
     {
-        $splitValue = explode('/',strtolower($value));
-        if(count($splitUrl) == count($splitValue))
-        {
-          $ok = true;
-          foreach ($splitUrl as $index => $item)
-          {
-            if($splitValue[$index] == '{param}')
-              array_push($params,$item);
+        if ($notFoundUrl != null) {
+            $this->notFoundUrl = $notFoundUrl;
+        }
 
-            if($splitValue[$index] != '{param}' && $item != $splitValue[$index])
-            {
-              $ok = false;
-              break;
-            }
-          }
+        if ($debug != null) {
+            $this->debug = $debug;
+        }
+    }
 
-          if($ok)
-          {
-            $method = $this->_method[$key];
-            try
-            {
-              if(is_string($method))
-              {
-                if(file_exists($method))
-                  require $method;
-                else
-                  $this->handleNotFound();
-              }
-              else
-                call_user_func($method);
+    public function add($url, $method = null)
+    {
+        $this->_uri[] = '/'.trim($url, '/');
 
-              return;
-            }
-            catch(Exception $ex)
-            {
-              print_r('Error on handle route' . $url);
-              if($this->debug)
-              {
-                print_r('<pre>');
-                print_r($ex);
-              }
-            }
-          } // fecha if OK
-        } // fecha if count
-      } // fecha foreach
+        if ($method != null) {
+            $this->_method[] = $method;
+        }
+    }
+
+    public function handle()
+    {
+        $params = array();
+        $splitUrl = explode('/', strtolower(explode('?', $_SERVER['REQUEST_URI'])[0]));
+        foreach ($this->_uri as $key => $value) {
+            $splitValue = explode('/', strtolower($value));
+            if (count($splitUrl) == count($splitValue)) {
+                $ok = true;
+                foreach ($splitUrl as $index => $item) {
+                    if ($splitValue[$index] == '{param}') {
+                        array_push($params, $item);
+                    }
+
+                    if ($splitValue[$index] != '{param}' && $item != $splitValue[$index]) {
+                        $ok = false;
+                        break;
+                    }
+                }
+
+                if ($ok) {
+                    $method = $this->_method[$key];
+                    try {
+                        if (is_string($method)) {
+                            if (file_exists($method)) {
+                                require $method;
+                            } else {
+                                $this->handleNotFound();
+                            }
+                        } else {
+                            call_user_func($method);
+                        }
+
+                        return;
+                    } catch (Exception $ex) {
+                        print_r('Error on handle route'.$url);
+                        if ($this->debug) {
+                            print_r('<pre>');
+                            print_r($ex);
+                        }
+                    }
+                } // fecha if OK
+            } // fecha if count
+        } // fecha foreach
 
       $this->handleNotFound();
-  }
+    }
 
-  function handleNotFound()
-  {
-      header('Location: '.$this->notFoundUrl);
-      return;
-  }
+    public function handleNotFound()
+    {
+        header('Location: '.$this->notFoundUrl);
 
+        return;
+    }
 }

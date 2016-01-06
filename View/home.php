@@ -50,7 +50,7 @@
 <body>
   <div ng-app="aet">
     <div id="wrapper">
-        <?php
+      <?php
           require_once 'View/nav.php';
         ?>
         <div id="page-wrapper">

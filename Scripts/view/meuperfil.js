@@ -62,16 +62,22 @@ function MeuPerfilCtrl($scope, $http) {
 
   $scope.tipoComprovanteChange = function() {
     $('#fileUploadArquivos').fileupload({
-      url: _baseURL + '/ajaxarquivos/savearquivoperfil?tipo=' + $scope.tipoComprovante,
+      url: '/arquivo/save/' + $scope.tipoComprovante,
       dataType: 'json',
       pasteZone: null,
       done: function(e, data) {
+        console.log(e.responseText);
+        console.log(data.result);
         if (data.result == true) {
-          $scope.buscaArquivos();
+          //$scope.buscaArquivos();
           $('#spanMsgSucessoFile').fadeIn(1500).delay(5000).fadeOut(500);
         } else
           alert(data.result);
       },
+      error: function(e, data) {
+        console.log(e.responseText);
+        console.log(data);
+      }
     });
   }
 

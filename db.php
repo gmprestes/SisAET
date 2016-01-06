@@ -2,18 +2,16 @@
 
 class DB
 {
-
     private static $instance;
 
     public static function getInstance()
     {
-        if (null == DB::$instance) {
-            DB::$instance = new DB();
+        if (null == self::$instance) {
+            self::$instance = new self();
         }
 
-        return DB::$instance;
+        return self::$instance;
     }
-
 
     private $connection;
     private $db;
@@ -22,17 +20,13 @@ class DB
     public $DtoPessoa;
     public $DtoArquivo;
 
-
-    function __construct()
+    public function __construct()
     {
-        $this->connection = new MongoClient("mongodb://aetadmin:64608099@mongodb.6nti.com.br:27017/aet");
+        $this->connection = new MongoClient('mongodb://aetadmin:64608099@mongodb.6nti.com.br:27017/aet');
         $this->db = $this->connection->aet;
 
         $this->ASPNETUsers = $this->db->ASPNETUsers;
         $this->DtoPessoa = $this->db->DtoPessoa;
         $this->DtoArquivo = $this->db->DtoArquivo;
-
     }
 }
-
-?>
