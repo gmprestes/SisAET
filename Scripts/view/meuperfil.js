@@ -66,17 +66,16 @@ function MeuPerfilCtrl($scope, $http) {
       dataType: 'json',
       pasteZone: null,
       done: function(e, data) {
-        console.log(e.responseText);
+        //console.log(e.responseText);
         console.log(data.result);
         if (data.result == true) {
-          //$scope.buscaArquivos();
+          $scope.buscaArquivos();
           $('#spanMsgSucessoFile').fadeIn(1500).delay(5000).fadeOut(500);
         } else
           alert(data.result);
       },
       error: function(e, data) {
-        console.log(e.responseText);
-        console.log(data);
+        alert("Erro ao fazer o upload do arquivo. Somente arquivos .jpg, .png e .pdf podem ser anexados.");
       }
     });
   }

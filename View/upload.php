@@ -1,32 +1,29 @@
 <?php
 
-
 require_once 'db.php';
-require_once '../Models/TipoArquivo.php';
+require_once '/Models/TipoArquivo.php';
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-//$_SESSION["userid"]
+//print_r($_FILES);
 
-$db = DB::getInstance();
-
-$file = $db->DtoArquivo->findOne(array('_id' => new MongoId($params[0])));
+//return;
 
 // Array com as extensões permitidas
-$extencoes = array('jpg', 'png', 'gif');
+$extencoes = array('jpg', 'jpeg', 'pdf', 'png', 'gif');
 
-$tipoArquivo = TipoArquivo::ComprovanteEnderecoPerfil;
+$tipoArquivo = TipoArquivo::$ComprovanteEnderecoPerfil;
 
 if ($params[0] == 'identidade') {
-    $tipoArquivo = TipoArquivo::ComprovanteIdentidadePerfil;
+    $tipoArquivo = TipoArquivo::$ComprovanteIdentidadePerfil;
 } elseif ($params[0] == 'eleitor') {
-    $tipoArquivo = TipoArquivo::ComprovanteTituloEleitor;
+    $tipoArquivo = TipoArquivo::$ComprovanteTituloEleitor;
 } elseif ($params[0] == 'cpf') {
-    $tipoArquivo = TipoArquivo::ComprovanteCPF;
+    $tipoArquivo = TipoArquivo::$ComprovanteCPF;
 } elseif ($params[0] == 'certidaonascimento') {
-    $tipoArquivo = TipoArquivo::ComprovanteCertidaoNascimento;
+    $tipoArquivo = TipoArquivo::$ComprovanteCertidaoNascimento;
 }
 
 //echo $_FILES['files']['size'];
@@ -38,42 +35,44 @@ if ($params[0] == 'identidade') {
 //exit; // Para a execução do script
 //}
 
-// Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
-
 // Faz a verificação da extensão do arquivo
-$split = explode('.', $_FILES['files']['name'][0]);
+$nomeArquivo = $_FILES['files']['name'][0];
+$split = explode('.', $nomeArquivo);
 $extensao = strtolower(end($split));
 if (array_search($extensao, $extencoes) === false) {
-    echo 'Por favor, envie arquivos com as seguintes extensões: jpg, png ou gif';
-
-    return;
+    echo "Por favor, envie arquivos com as seguintes extensões: jpg, png ou gif";
 }
 
-// O arquivo passou em todas as verificações, hora de tentar movê-lo para a pasta
-else {
-    // Primeiro verifica se deve trocar o nome do arquivo
-if ($_UP['renomeia'] == true) {
-    // Cria um nome baseado no UNIX TIMESTAMP atual e com extensão .jpg
-$nome_final = time().'.jpg';
+$fileBytes = file_get_contents($_FILES['files']['tmp_name'][0]);
+//echo $fileBytes;
+
+$db = DB::getInstance();
+$file = $db->DtoArquivo->findOne(array('UserId' => $_SESSION['userid'], 'TipoArquivo' => $tipoArquivo));
+
+// sele ele achar o arquivo faz update do mesmo, se ele não achar, ele cria um novo
+if (!empty($file)) {
+    $file['Aceito'] = false;
+    $file['Verificado'] = false;
+    $file['ExtencaoArquivo'] = '';
+    $file['DataUpload'] = new MongoDate();
+    $file['Nome'] = $nomeArquivo;
+    $file['File'] = new MongoBinData($fileBytes, MongoBinData::GENERIC);
+
+    $db->DtoArquivo->update(array('_id' => $file['_id']), $file);
 } else {
-    // Mantém o nome original do arquivo
-$nome_final = $_FILES['files']['name'][0];
-}
+    $file = array(
+      'Nome' => $nomeArquivo,
+      'Tamanho' => $_FILES['files']['size'][0],
+      'DataUpload' => new MongoDate(),
+      'UserId' => $_SESSION['userid'],
+      'TipoArquivo' => $tipoArquivo,
+      'ExtencaoArquivo' => $_FILES['files']['type'][0],
+      'Verificado' => false,
+      'Aceito' => false,
+      'File' => new MongoBinData($fileBytes, MongoBinData::GENERIC),
+      'FKId' => null,
+    );
 
-    $fileBytes = file_get_contents($_FILES['files']['tmp_name'][0]);
-    echo $fileBytes;
-//$profile = array(
-//    "username" => "foobity",
-//    "pic" => new MongoBinData(file_get_contents("gravatar.jpg"), MongoBinData::GENERIC),
-//);
-
-// Depois verifica se é possível mover o arquivo para a pasta escolhida
-//if (move_uploaded_file($_FILES['files']['tmp_name'][0], $_UP['pasta'] . $nome_final)) {
-// Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo
-//echo "Upload efetuado com sucesso!";
-//echo '<br /><a href="' . $_UP['pasta'] . $nome_final . '">Clique aqui para acessar o arquivo</a>';
-//} else {
-// Não foi possível fazer o upload, provavelmente a pasta está incorreta
-//echo "Não foi possível enviar o arquivo, tente novamente";
-//}
+    $db->DtoArquivo->insert($file);
 }
+echo true;
