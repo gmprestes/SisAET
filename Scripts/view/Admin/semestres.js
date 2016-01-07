@@ -50,11 +50,7 @@ function SemestresListCtrl($scope, $http) {
 }
 
 function SemestresEditCtrl($scope, $http, $routeParams) {
-
-  //var id = "";
-  //if ($routeParams.Id)
   var id = $routeParams.Id;
-
   $scope.semestre = new Object();
 
   $scope.init = function() {
@@ -68,7 +64,6 @@ function SemestresEditCtrl($scope, $http, $routeParams) {
       }
     }).success(function(data, status) {
       console.log("Buscou semestre");
-      console.log(data);
       $scope.semestre = data;
     });
   }
@@ -95,7 +90,7 @@ function SemestresEditCtrl($scope, $http, $routeParams) {
   }
 
   $scope.voltar = function() {
-    window.location = "/semestres/list";
+    window.location = "#/semestres/list";
   }
 
   $scope.init();

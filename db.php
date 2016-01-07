@@ -20,6 +20,8 @@ class DB
     public $DtoPessoa;
     public $DtoArquivo;
     public $DtoSemestre;
+    public $DtoAuxilio;
+
 
 
     public function __construct()
@@ -31,6 +33,6 @@ class DB
         $this->DtoPessoa = $this->db->DtoPessoa;
         $this->DtoArquivo = $this->db->DtoArquivo;
         $this->DtoSemestre = $this->db->DtoSemestre;
-
+        $this->DtoAuxilio = $this->db->DtoAuxilio;
     }
 }

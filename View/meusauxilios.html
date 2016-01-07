@@ -10,7 +10,7 @@
       <button id="bntSalvar" type="button" class="btn btn-success navbar-right btnsTop" ng-click="salvar()" style="margin-bottom: 15px;">Salvar</button>
       <div class="form-group col-lg-2">
         <label>Semestre</label>
-        <select class="form-control" ng-change="changeSemestre()" ng-model="auxilio.SemestreId" ng-options="o.Id as o.Nome for o in semestres">
+        <select class="form-control" ng-change="changeSemestre()" ng-model="auxilio.SemestreId" ng-options="o._id as o.Nome for o in semestres">
         </select>
       </div>
     </div>
@@ -224,3 +224,20 @@
       </div>
     </div>
   </div>
+
+  <script>
+    $(function() {
+
+      $(".disable").prop('disabled', true);
+
+      $(".numbers").SomenteNumeros();
+
+      $(".money").Decimal();
+
+      $(".data").datepicker({
+        format: 'dd/mm/yyyy'
+      });
+
+      $(".data").mask("99/99/9999");
+    });
+  </script>
