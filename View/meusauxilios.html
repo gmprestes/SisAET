@@ -1,3 +1,6 @@
+<script type="text/javascript" src="/Scripts/utils/fileupload/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/Scripts/utils/fileupload/jquery.fileupload.js"></script>
+<script type="text/javascript" src="/Scripts/utils/fileupload/jquery.iframe-transport.js"></script>
 <script type="text/javascript" src="/Scripts/view/auxilios.js">
 </script>
 <div ng-controller="AuxiliosCtrl">
@@ -41,7 +44,7 @@
                 </div>
                 <div class="form-group col-lg-3">
                   <label>Instituição de Ensino</label>
-                  <select class="form-control" ng-disabled="auxilio.Concedido" ng-model="auxilio.InstituicaoId" ng-options="o.Id as o.Sigla for o in instituicoes">
+                  <select class="form-control" ng-disabled="auxilio.Concedido" ng-model="auxilio.InstituicaoId" ng-options="o._id as o.Sigla for o in instituicoes">
                   </select>
                 </div>
                 <div class="form-group col-lg-3">
@@ -212,7 +215,7 @@
                         <td>{{ item.DataUpload }}</td>
                         <td>{{ item.Verificado ? 'Sim':'Não' }}</td>
                         <td>{{ item.Aceito ? 'Sim':'Não' }}</td>
-                        <td><i style="cursor: pointer;" class="fa fa-cloud-download fa-fw" ng-click="baixarArquivo(item.Id)"></i></td>
+                        <td><i style="cursor: pointer;" class="fa fa-cloud-download fa-fw" ng-click="baixarArquivo(item._id)"></i></td>
                       </tr>
                     </tbody>
                   </table>

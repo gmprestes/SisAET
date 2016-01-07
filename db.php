@@ -21,6 +21,7 @@ class DB
     public $DtoArquivo;
     public $DtoSemestre;
     public $DtoAuxilio;
+    public $DtoInstituicao;
 
 
 
@@ -34,5 +35,6 @@ class DB
         $this->DtoArquivo = $this->db->DtoArquivo;
         $this->DtoSemestre = $this->db->DtoSemestre;
         $this->DtoAuxilio = $this->db->DtoAuxilio;
+        $this->DtoInstituicao = $this->db->DtoInstituicao;
     }
 }

@@ -17,16 +17,14 @@ class Instituicao
     }
 
     /**
-     * @url GET /semestre/GetAll
+     * @url GET /instituicao/GetAllAtivos
      */
-    public function GetAll()
+    public function GetAllAtivos()
     {
         $db = DB::getInstance();
-        $cursor = $db->DtoSemestre->find();
+        $cursor = $db->DtoInstituicao->find(array('Ativo' => true));
         $array = array();
         foreach ($cursor as $doc) {
-            $doc['DataInicio'] = mgdt_to_string($doc['DataInicio']);
-            $doc['DataTermino'] = mgdt_to_string($doc['DataTermino']);
             $doc['_id'] = mgid_to_string($doc['_id']);
             array_push($array, $doc);
         }

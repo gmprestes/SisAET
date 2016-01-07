@@ -21,7 +21,6 @@ function AuxiliosCtrl($scope, $http) {
       }
     }).success(function(data, status) {
       console.log("Buscou semestres");
-      console.log(data);
       $scope.semestres = data;
       $scope.auxilio.SemestreId = data[0]._id;
 
@@ -39,16 +38,21 @@ function AuxiliosCtrl($scope, $http) {
 
   $scope.tipoComprovanteChange = function() {
     $('#fileUploadArquivos').fileupload({
-      url: _baseURL + '/ajaxarquivos/savearquivosemestre?semestreid=' + $scope.auxilio.SemestreId + '&' + $scope.tipoComprovante,
+      url: '/arquivo/save/' + $scope.tipoComprovante + '/' + $scope.auxilio._id,
       dataType: 'json',
       pasteZone: null,
       done: function(e, data) {
+        console.log(data.result);
         if (data.result == true) {
           $scope.getArquivos();
           $('#spanMsgSucessoFile').fadeIn(1500).delay(5000).fadeOut(500);
         } else
           alert(data.result);
       },
+      error: function(e, data) {
+        console.log(e.responseText);
+        console.log(data.result);
+      }
     });
   }
 
@@ -57,7 +61,10 @@ function AuxiliosCtrl($scope, $http) {
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: '/api/semestre/Get?semestreid=' + $scope.auxilio.SemestreId
+      url: '/api/semestre/Get/' + $scope.auxilio.SemestreId,
+      headers: {
+        'Authorization': _token,
+      }
     }).success(function(data, status) {
       $scope.semestre = data;
 
@@ -90,22 +97,30 @@ function AuxiliosCtrl($scope, $http) {
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: '/api/instituicao/GetAllItensAtivos'
+      url: '/api/instituicao/GetAllAtivos',
+      headers: {
+        'Authorization': _token,
+      }
     }).success(function(data, status) {
+      console.log("Buscou instituicoes");
       $scope.instituicoes = data;
       $scope.auxilio.InstituicaoId = data[0]._id;
     });
   }
 
   $scope.getAuxilio = function() {
+    console.log($scope.auxilio.SemestreId);
     $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: '/api/auxilio/Get?id=' + $scope.auxilio.SemestreId
+      url: '/api/auxilio/Get/' + $scope.auxilio.SemestreId,
+      headers: {
+        'Authorization': _token,
+      }
     }).success(function(data, status) {
+      console.log("Buscou auxilio");
       $scope.auxilio = data;
-
       $scope.getArquivos();
       $scope.tipoComprovanteChange();
     });
@@ -116,8 +131,12 @@ function AuxiliosCtrl($scope, $http) {
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: '/api/arquivo/GetAllFilesSemestre?id=' + $scope.auxilio.Id
+      headers: {
+        'Authorization': _token,
+      },
+      url: '/api/arquivo/GetAllFilesSemestre/' + $scope.auxilio._id
     }).success(function(data, status) {
+      console.log("Buscou arquivos semestre");
       $scope.arquivos = data;
     });
   }
@@ -135,11 +154,17 @@ function AuxiliosCtrl($scope, $http) {
       method: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/auxilio/Save',
+      url: '/api/auxilio/Save',
+      headers: {
+        'Authorization': _token,
+      },
       data: {
-        auxilio: JSON.stringify($scope.auxilio).toString()
+        auxilio: $scope.auxilio
       }
     }).success(function(data, status) {
+      console.log("Salvou");
+      console.log(data);
+
       $("#bntSalvar").prop("disabled", false);
       $("#bntSalvar").val("Salvar");
       $("#msgSucesso").fadeIn(1500).delay(3000).fadeOut(500);
@@ -228,7 +253,7 @@ function AuxiliosCtrl($scope, $http) {
   }
 
   $scope.baixarArquivo = function(id) {
-    var url = _baseURL + '/ajaxarquivos/getfile?id=' + id;
+    var url = '/arquivo/get/' + id;
     downloadFile(guid(), url);
   }
 

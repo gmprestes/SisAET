@@ -48,4 +48,37 @@ class Arquivo
 
         return $array;
     }
+
+    /**
+     * @url GET /arquivo/GetAllFilesSemestre/$id
+     */
+    public function GetAllFilesSemestre($id)
+    {
+        if (!empty($id) && $id != 'undefined') {
+            $db = DB::getInstance();
+            $cursor = $db->DtoArquivo->find(
+              array('UserId' => $_SESSION['userid'],
+                'FKId' => $id,
+                'TipoArquivo' => array('$in' => array(
+                  TipoArquivo::$ComprovanteMatriculaSemestre,
+                  TipoArquivo::$ComprovanteNotasUltimoSemestre, )),
+              ),
+              array('_id' => true,
+                'Nome' => true,
+                'TipoArquivo' => true,
+                'DataUpload' => true,
+                'Verificado' => true,
+                'Aceito' => true, ));
+
+            $cursor->sort(array('DataUpload' => -1));
+            $array = array();
+            foreach ($cursor as $doc) {
+                $doc['DataUpload'] = mgdt_to_string($doc['DataUpload']);
+                $doc['_id'] = mgid_to_string($doc['_id']);
+                array_push($array, $doc);
+            }
+
+            return $array;
+        }
+    }
 }

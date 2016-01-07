@@ -17,6 +17,7 @@ function MasterCtrl($scope, $http) {
         'Authorization': _token,
       }
     }).success(function(data, status) {
+      console.log(data);
       $scope.username = JSON.parse(data);
 
       $http({

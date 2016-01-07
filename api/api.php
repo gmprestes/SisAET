@@ -6,14 +6,16 @@ require_once 'controllers/Pessoa.php';
 require_once 'controllers/Arquivo.php';
 require_once 'controllers/Cadastro.php';
 require_once 'controllers/Semestre.php';
-
+require_once 'controllers/Instituicao.php';
+require_once 'controllers/Auxilio.php';
 
 $server = new PowerfulAPI('debug');
-
 $server->addClass('Login');
 $server->addClass('Pessoa');
 $server->addClass('Arquivo');
 $server->addClass('Semestre');
+$server->addClass('Instituicao');
+$server->addClass('Auxilio');
 
 $server->handle();
 
