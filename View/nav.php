@@ -23,7 +23,7 @@
                                 <li>
                                     <a href="#/auxilio"><i class="fa fa-book fa-fw"></i>Meus Auxílios</a>
                                 </li>
-                                <li ng-show="isAdmin">
+                               <li ng-show="isAdmin">
                                     <a href="#/semestres/list"><i class="fa fa-calendar fa-fw"></i>Cad Semestres</a>
                                 </li>
                                 <li ng-show="isAdmin">

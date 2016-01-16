@@ -10,6 +10,4 @@ class TipoArquivo
 
     public static $ComprovanteMatriculaSemestre = 'ComprovanteMatriculaSemestre';
     public static $ComprovanteNotasUltimoSemestre = 'ComprovanteNotasUltimoSemestre';
-
-
 }

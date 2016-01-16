@@ -26,8 +26,8 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
   <script type="text/javascript" src="/Scripts/utils/downloadFile.js"></script>
-  <script type="text/javascript" src="/Scripts/utils/helpers.js"></script>
-  <script type="text/javascript" src="/Scripts/utils/app.js"></script>
+  <script type="text/javascript" src="/Scripts/utils/helpers.js?v=1451931154"></script>
+  <script type="text/javascript" src="/Scripts/utils/app.js?v=1451931154"></script>
 
   <script src="/Scripts/utils/alertExtend.js"></script>
   <script src="/Scripts/utils/angularMethods.js"></script>

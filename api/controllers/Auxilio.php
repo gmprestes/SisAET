@@ -28,8 +28,8 @@ class Auxilio
                 $auxilio['_id'] = mgid_to_string($auxilio['_id']);
                 $auxilio['DataDoPedido'] = mgdt_to_string($auxilio['DataDoPedido']);
                 $auxilio['DataConcessao'] = mgdt_to_string($auxilio['DataConcessao']);
-                $auxilio['DataInicio'] = mgdt_to_string($auxilio['DataInicio']);
-                $auxilio['DataTermino'] = mgdt_to_string($auxilio['DataTermino']);
+                //$auxilio['DataInicio'] = mgdt_to_string($auxilio['DataInicio']);
+                //$auxilio['DataTermino'] = mgdt_to_string($auxilio['DataTermino']);
 
                 for ($i = 0; $i < sizeof($auxilio['Disciplinas']); ++$i) {
                     $auxilio['Disciplinas'][$i]['DataInicio'] = mgdt_to_string($auxilio['Disciplinas'][$i]['DataInicio']);
@@ -60,8 +60,8 @@ class Auxilio
                 $auxilio['_id'] = mgid_to_string($auxilio['_id']);
                 $auxilio['DataDoPedido'] = mgdt_to_string($auxilio['DataDoPedido']);
                 $auxilio['DataConcessao'] = mgdt_to_string($auxilio['DataConcessao']);
-                $auxilio['DataInicio'] = mgdt_to_string($auxilio['DataInicio']);
-                $auxilio['DataTermino'] = mgdt_to_string($auxilio['DataTermino']);
+                //$auxilio['DataInicio'] = mgdt_to_string($auxilio['DataInicio']);
+                //$auxilio['DataTermino'] = mgdt_to_string($auxilio['DataTermino']);
             }
 
             return $auxilio;
@@ -75,8 +75,8 @@ class Auxilio
         $auxilio = $data->auxilio;
 
         $auxilio->_id = new MongoId($auxilio->_id);
-        $auxilio->DataInicio = new MongoDate(str_to_datetime($auxilio->DataInicio));
-        $auxilio->DataTermino = new MongoDate(str_to_datetime($auxilio->DataTermino));
+        //$auxilio->DataInicio = new MongoDate(str_to_datetime($auxilio->DataInicio));
+        //$auxilio->DataTermino = new MongoDate(str_to_datetime($auxilio->DataTermino));
         $auxilio->DataDoPedido = new MongoDate(str_to_datetime($auxilio->DataDoPedido));
         $auxilio->DataConcessao = new MongoDate(str_to_datetime($auxilio->DataConcessao));
 

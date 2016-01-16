@@ -1,15 +1,11 @@
 <?php
 
 require_once 'db.php';
-require_once '/Models/TipoArquivo.php';
+require_once 'Models/TipoArquivo.php';
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
-//print_r($_FILES);
-
-//return;
 
 // Array com as extensões permitidas
 $extencoes = array('jpg', 'jpeg', 'pdf', 'png', 'gif');

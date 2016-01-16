@@ -11,6 +11,15 @@ class ASPNETUser
         $this->db = DB::getInstance();
     }
 
+    public static function GUID()
+    {
+        if (function_exists('com_create_guid') === true) {
+            return trim(com_create_guid(), '{}');
+        }
+
+        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+    }
+
     public static function GetUserByName($usuario)
     {
         $db = DB::getInstance();
@@ -79,8 +88,9 @@ class ASPNETUser
         $salt = base64_decode($password_salt);
         $password = base64_encode(sha1($salt.$bytes, true));
 
+        $guid = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
         $user = array(
-                '_id' => strtolower(trim(com_create_guid(), '{}')),
+                '_id' => strtolower(trim($guid, '{}')),
                 'ApplicationName' => '/',
                 'CreationDate' => new MongoDate(),
                 'Email' => $usuario,

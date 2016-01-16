@@ -74,6 +74,7 @@ class Semestre
             $db = DB::getInstance();
             $semestre = $db->DtoSemestre->findOne(array('_id' => new MongoId($id)));
         }
+
         if (!empty($semestre)) {
             $semestre['DataInicio'] = mgdt_to_string($semestre['DataInicio']);
             $semestre['DataTermino'] = mgdt_to_string($semestre['DataTermino']);

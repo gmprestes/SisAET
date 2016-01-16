@@ -29,7 +29,7 @@
                   <input class="form-control" placeholder="Password" name="password" type="password" value="" ng-model="senha">
                 </div>
                 <div class="form-group" id="Div1">
-                  <a href="/lembrarsenha">Esqueci a senha</a>
+                  <!--<a href="/lembrarsenha">Esqueci a senha</a>-->
                 </div>
                 <!-- Change this to a button or input when using this as a form -->
                 <a id="btnLogin" class="btn btn-lg btn-success btn-block" ng-click="auth()">Login</a>

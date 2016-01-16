@@ -49,7 +49,7 @@
 
         var httpRequest = $http({
             method: 'POST',
-            contentType: 'application/json; charset=utf-8',
+            //contentType: 'application/json; charset=utf-8',
             dataType: "json",
             url: '/api/cadastro/Criar',
             data: { usuario: $scope.nome, cpf: $scope.cpf, senha: $scope.pass }
