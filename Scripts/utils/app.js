@@ -24,13 +24,13 @@ app.config(function($routeProvider, $locationProvider) {
       templateUrl: '/View/meusauxilios.html'
     })
     .when('/semestres/list', {
-      templateUrl: '/View/Semestres/list.html'
+      templateUrl: '/View/semestres/list.html'
     })
     .when('/semestres/edit', {
-      templateUrl: '/View/Semestres/edit.html'
+      templateUrl: '/View/semestres/edit.html'
     })
     .when('/semestres/edit/:Id', {
-      templateUrl: '/View/Semestres/edit.html'
+      templateUrl: '/View/semestres/edit.html'
     })
     //.when('/Book/:bookId/ch/:chapterId', {
     //templateUrl: 'chapter.html',
