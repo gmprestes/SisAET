@@ -32,6 +32,15 @@ app.config(function($routeProvider, $locationProvider) {
     .when('/semestres/edit/:Id', {
       templateUrl: '/View/semestres/edit.html'
     })
+    .when('/instituicoes/list', {
+      templateUrl: '/View/instituicoes/list.html'
+    })
+    .when('/instituicoes/edit', {
+      templateUrl: '/View/instituicoes/edit.html'
+    })
+    .when('/instituicoes/edit/:Id', {
+      templateUrl: '/View/instituicoes/edit.html'
+    })
     //.when('/Book/:bookId/ch/:chapterId', {
     //templateUrl: 'chapter.html',
     //controller: 'ChapterController'

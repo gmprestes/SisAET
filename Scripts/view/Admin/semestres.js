@@ -85,7 +85,10 @@ function SemestresEditCtrl($scope, $http, $routeParams) {
       if (data == "ERRO")
         alert("Ocorreu um erro ao salvar este item, tente novamente em alguns instantes.");
       else
+      {
+        $("#msgSucesso").fadeIn(1500).delay(3000).fadeOut(500);
         window.location = "#/semestres/edit/" + JSON.parse(data);
+      }
     });
   }
 

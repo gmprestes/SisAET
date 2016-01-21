@@ -1,0 +1,47 @@
+<script type="text/javascript" src="/Scripts/view/admin/instituicoes.js?v=1451931155"></script>
+
+<div ng-controller="InstituicoesEditCtrl">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Cadastro/Edição de Instituição
+        <span id="msgSucesso" style="display: none;">- Dados salvos com sucesso
+        </span>
+      </h1>
+      <button id="bntSalvar" type="button" class="btn btn-success navbar-right btnsTop" ng-click="save()">Salvar</button>
+      <button id="btnVoltar" type="button" class="btn btn-danger navbar-right btnsTop" ng-click="voltar()">Voltar</button>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="row">
+      <div class="form-group col-lg-3">
+        <label>Nome</label>
+        <input class="form-control" type="text" ng-model="instituicao.Nome">
+      </div>
+      <div class="form-group col-lg-1">
+        <label>Sigla</label>
+        <input class="form-control" type="text" ng-model="instituicao.Sigla">
+      </div>
+      <div class="form-group col-lg-1">
+        <label>Ativo</label>
+        <input class="form-control" type="checkbox" ng-model="instituicao.Ativo">
+      </div>
+    </div>
+  </div>
+  <script>
+    //$(function() {
+
+      //$(".disable").prop('disabled', true);
+
+      //$(".numbers").SomenteNumeros();
+
+      //$(".money").Decimal();
+
+      //$(".data").datepicker({
+      //  format: 'dd/mm/yyyy'
+      //});
+
+      //$(".data").mask("99/99/9999");
+    //});
+  </script>
