@@ -32,7 +32,7 @@
                                 <li ng-show="isAdmin">
                                     <a href="#/associado/list"><i class="fa fa-tags fa-fw"></i>Associados</a>
                                 </li>
-                                 <li ng-show="isAdmin">
+                                 <li style="display:none;">
                                     <a href="#/relatorios"><i class="fa fa-tags fa-fw"></i>Relatorios</a>
                                 </li>
                                 <li>

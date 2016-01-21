@@ -23,6 +23,7 @@ app.config(function($routeProvider, $locationProvider) {
     .when('/auxilio', {
       templateUrl: '/View/meusauxilios.html'
     })
+    // semestres
     .when('/semestres/list', {
       templateUrl: '/View/semestres/list.html'
     })
@@ -32,6 +33,7 @@ app.config(function($routeProvider, $locationProvider) {
     .when('/semestres/edit/:Id', {
       templateUrl: '/View/semestres/edit.html'
     })
+    // instituição
     .when('/instituicoes/list', {
       templateUrl: '/View/instituicoes/list.html'
     })
@@ -41,10 +43,17 @@ app.config(function($routeProvider, $locationProvider) {
     .when('/instituicoes/edit/:Id', {
       templateUrl: '/View/instituicoes/edit.html'
     })
-    //.when('/Book/:bookId/ch/:chapterId', {
-    //templateUrl: 'chapter.html',
-    //controller: 'ChapterController'
-    //});
+    // associados
+    .when('/associados/list', {
+      templateUrl: '/View/associados/list.html'
+    })
+    .when('/associados/edit', {
+      templateUrl: '/View/associados/edit.html'
+    })
+    .when('/associados/edit/:Id', {
+      templateUrl: '/View/associados/edit.html'
+    })
+
 
   // configure html5 to get links working on jsfiddle
   $locationProvider.html5Mode(false);

@@ -47,6 +47,36 @@ class Semestre
     }
 
     /**
+     * @url GET /semestre/GetSemestresAssociado/$id
+     */
+    public function GetSemestresAssociado()
+    {
+        $db = DB::getInstance();
+        $cursor = $db->DtoAuxilio->find(array('UserId' => $_SESSION['userid']));
+        $idsSemestres = array();
+        foreach ($cursor as $doc) {
+            array_push($idsSemestres, str_to_mongoid($doc['SemestreId']));
+        }
+
+        $cursor = $db->DtoSemestre->find(array('$or' => array(
+          array('Ativo' => true),
+          array('_id' => array('$in' => $idsSemestres)),
+        )));
+
+        // faz com que a lista retornada seja do ultimo para o primeiro
+        $cursor->sort(array('_id' => -1));
+        $itens = array();
+        foreach ($cursor as $doc) {
+            $doc['DataInicio'] = mgdt_to_string($doc['DataInicio']);
+            $doc['DataTermino'] = mgdt_to_string($doc['DataTermino']);
+            $doc['_id'] = mgid_to_string($doc['_id']);
+            array_push($itens, $doc);
+        }
+
+        return $itens;
+    }
+
+    /**
      * @url GET /semestre/GetAll
      */
     public function GetAll()
