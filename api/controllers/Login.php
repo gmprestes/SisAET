@@ -113,4 +113,21 @@ class Login
             return array(false, '');
         }
     }
+
+    /**
+     * @url GET /login/ForcarAlterarSenha/$id
+     */
+    public function ForcarAlterarSenha($id)
+    {
+
+        $db = DB::getInstance();
+        $pessoa = $db->DtoPessoa->findOne(array('_id' => str_to_mongoid($id)));
+        $user = ASPNETUser::GetUserById($pessoa['UserId']);
+
+
+            ASPNETUser::AlterarSenha($user['Username'], '12345678');
+
+            return "Senha alterada para 12345678";
+
+    }
 }

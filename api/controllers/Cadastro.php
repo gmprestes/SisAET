@@ -27,7 +27,7 @@ class Cadastro
             session_start();
         }
 
-        $usuario = $data->usuario;
+        $usuario = strtolower($data->usuario);
         $senha = $data->senha;
         $cpf = $data->cpf;
 

@@ -30,7 +30,7 @@
                                     <a href="#/instituicoes/list"><i class="fa fa-tags fa-fw"></i>Cad Instituicões</a>
                                 </li>
                                 <li ng-show="isAdmin">
-                                    <a href="#/associado/list"><i class="fa fa-tags fa-fw"></i>Associados</a>
+                                    <a href="#/associados/list"><i class="fa fa-tags fa-fw"></i>Associados</a>
                                 </li>
                                  <li style="display:none;">
                                     <a href="#/relatorios"><i class="fa fa-tags fa-fw"></i>Relatorios</a>

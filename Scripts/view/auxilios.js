@@ -37,7 +37,7 @@ function AuxiliosCtrl($scope, $http) {
   }
 
   $scope.tipoComprovanteChange = function() {
-    $('#fileUploadArquivos').fileupload({
+    $('#fileUploadArquivosAuxilio').fileupload({
       url: '/arquivo/save/' + $scope.tipoComprovante + '/' + $scope.auxilio._id,
       dataType: 'json',
       pasteZone: null,

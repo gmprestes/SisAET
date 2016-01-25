@@ -1,5 +1,7 @@
 ﻿
-function AuxiliosAssociadoCtrl($scope, $http) {
+function AuxiliosAssociadoCtrl($scope, $http, $routeParams) {
+
+  var id = $routeParams.Id;
 
   $scope.auxilio = new Object();
   $scope.arquivosSemestre = [];
@@ -9,15 +11,36 @@ function AuxiliosAssociadoCtrl($scope, $http) {
 
   $scope.tipoComprovanteSemestre = 'matricula';
 
+  $scope.resetarSenha = function() {
+    if (confirm("Clique em OK se deseja realmente resetar a senha. A senha será então alterada para 12345678. Oriente o usuario a alterar sua senha no primeiro acesso !!!")) {
+      $http({
+        method: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        headers: {
+          'Authorization': _token,
+        },
+        url: '/api/login/ForcarAlterarSenha/' + id
+      }).success(function(data, status) {
+        alert(data);
+      }).error(function(data, status) {
+        console.log(data);
+      });
+    }
+  }
+
   $scope.initSemestres = function() {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: '/api/pessoa/GetSemestresAssociado/' + _id
+      headers: {
+        'Authorization': _token,
+      },
+      url: '/api/semestre/GetSemestresAssociado/' + id
     }).success(function(data, status) {
       $scope.semestres = data;
-      $scope.auxilio.SemestreId = data[0].Id;
+      $scope.auxilio.SemestreId = data[0]._id;
 
       $scope.getInstituicoes();
       $scope.getSemestre();
@@ -48,7 +71,10 @@ function AuxiliosAssociadoCtrl($scope, $http) {
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/semestre/Get?semestreid=' + $scope.auxilio.SemestreId
+      headers: {
+        'Authorization': _token,
+      },
+      url: '/api/semestre/Get/' + $scope.auxilio.SemestreId
     }).success(function(data, status) {
       $scope.semestre = data;
 
@@ -62,23 +88,30 @@ function AuxiliosAssociadoCtrl($scope, $http) {
   }
 
   $scope.getInstituicoes = function() {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/instituicao/GetAllItensAtivos'
+      url: '/api/instituicao/GetAllAtivos',
+      headers: {
+        'Authorization': _token,
+      }
     }).success(function(data, status) {
+      console.log("Buscou instituicoes");
       $scope.instituicoes = data;
-      $scope.auxilio.InstituicaoId = data[0].Id;
+      $scope.auxilio.InstituicaoId = data[0]._id;
     });
   }
 
   $scope.getAuxilio = function() {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/auxilio/GetAssociado?semestreid=' + $scope.auxilio.SemestreId + '&pessoaid=' + _id
+      headers: {
+        'Authorization': _token,
+      },
+      url: '/api/auxilio/GetAuxilio/' + $scope.auxilio.SemestreId + '/' + id
     }).success(function(data, status) {
       $scope.auxilio = data;
 
@@ -88,11 +121,14 @@ function AuxiliosAssociadoCtrl($scope, $http) {
   }
 
   $scope.getArquivosSemestre = function() {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/arquivo/GetAllFilesSemestreAssociado?id=' + $scope.auxilio.Id + '&pessoaid=' + _id
+      headers: {
+        'Authorization': _token,
+      },
+      url: '/api/arquivo/GetAllFilesSemestre/' + $scope.auxilio._id + '/' + id
     }).success(function(data, status) {
       $scope.arquivosSemestre = data;
     });
@@ -107,13 +143,16 @@ function AuxiliosAssociadoCtrl($scope, $http) {
   $scope.salvarSemestre = function() {
     $("#bntSalvar").prop("disabled", true);
     $("#bntSalvar").val("Salvando...");
-    var httpRequest = $http({
+    $http({
       method: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/auxilio/Save',
+      url: '/api/auxilio/Save',
+      headers: {
+        'Authorization': _token,
+      },
       data: {
-        auxilio: JSON.stringify($scope.auxilio).toString()
+        auxilio: $scope.auxilio
       }
     }).success(function(data, status) {});
   }
@@ -207,8 +246,6 @@ function AssociadosListCtrl($scope, $http) {
 
   $scope.associados = [];
 
-
-
   $scope.init = function() {
 
     var nome = $.cookie("nomeListAssociado");
@@ -237,16 +274,21 @@ function AssociadosListCtrl($scope, $http) {
         auxilionaoconcedido: $scope.somenteDocsPendentes
       }
     }).success(function(data, status) {
+      console.log("Buscou associados");
+      console.log(data);
       $scope.associados = data;
 
       $('#tableAssociados').paginartable({
-        tamPagina: 10
+        tamPagina: 20
       });
+    }).error(function(data, status) {
+      console.log("Erro associados");
+      console.log(data);
     });
   }
 
   $scope.editItem = function(id) {
-    window.location = "#/associado/edit/" + id;
+    window.location = "#/associados/edit/" + id;
   }
 
   $scope.init();
@@ -260,32 +302,40 @@ function AssociadosListCtrl($scope, $http) {
     $.cookie("somenteDocsPendentesListAssociado", $scope.somenteDocsPendentes);
     $.cookie("AuxilioNaoConcedidoListAssociado", $scope.auxilioNaoConcedido);
 
-
-
-    var httpRequest = $http({
+    $http({
       method: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/pessoa/GetAll',
+      url: '/api/pessoa/GetList',
+      headers: {
+        'Authorization': _token,
+      },
       data: {
         nome: $scope.nome,
         docspendentes: $scope.somenteDocsPendentes,
         auxilionaoconcedido: $scope.somenteDocsPendentes
       }
     }).success(function(data, status) {
+      console.log("Buscou associados");
       $scope.associados = data;
+
+      $('#tableAssociados').paginartable({
+        tamPagina: 20
+      });
 
       $('#btnFiltrar').text("Filtrar");
       $('#btnFiltrar').prop("disabled", false);
-
-      $('#tableAssociados').paginartable({
-        tamPagina: 10
-      });
+    }).error(function(data, status) {
+      console.log("Erro associados");
+      console.log(data);
     });
+
   }
 }
 
-function AssociadosEditCtrl($scope, $http) {
+function AssociadosEditCtrl($scope, $http, $routeParams) {
+
+  var id = $routeParams.Id;
 
   $scope.tipoComprovante = 'identidade';
   $scope.pessoa = new Object();
@@ -296,7 +346,10 @@ function AssociadosEditCtrl($scope, $http) {
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/pessoa/GetById/' + _id
+      url: '/api/pessoa/GetById/' + id,
+      headers: {
+        'Authorization': _token,
+      },
     }).success(function(data, status) {
       $scope.pessoa = data;
       $scope.tipoComprovanteChange();
@@ -312,10 +365,13 @@ function AssociadosEditCtrl($scope, $http) {
       method: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
-      url: _baseURL + '/request/pessoa/Save',
+      url: '/api/pessoa/Save',
       data: {
-        pessoa: JSON.stringify($scope.pessoa).toString()
-      }
+        pessoa: $scope.pessoa
+      },
+      headers: {
+        'Authorization': _token,
+      },
     }).success(function(data, status) {
 
       $scope.salvarSemestre();
@@ -327,11 +383,14 @@ function AssociadosEditCtrl($scope, $http) {
   }
 
   $scope.buscaArquivos = function() {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      url: _baseURL + '/request/arquivo/GetAllFilesPessoa/' + $scope.pessoa.Id
+      headers: {
+        'Authorization': _token,
+      },
+      url: '/api/arquivo/GetAllFilesPessoa/' + $scope.pessoa._id
     }).success(function(data, status) {
       $scope.arquivos = data;
     });
@@ -363,21 +422,27 @@ function AssociadosEditCtrl($scope, $http) {
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
       data: {
-        arquivo: JSON.stringify(item).toString()
+        arquivo: item
       },
-      url: _baseURL + '/request/arquivo/SaveArquivo'
+      headers: {
+        'Authorization': _token,
+      },
+      url: '/api/arquivo/Save'
     }).success(function(data, status) {
-      if (data == false)
+      if (data != "true") {
+        console.log(typeof data);
         alert("Não foi possivel salvar esta alteração. Possivelmente o arquivo não existe mais");
-      else {
+      } else {
         $scope.buscaArquivos();
         $scope.getArquivosSemestre();
       }
+    }).error(function(data, status) {
+      console.log(data);
     });
 
   }
 
   $scope.init();
 
-  AuxiliosAssociadoCtrl($scope, $http);
+  AuxiliosAssociadoCtrl($scope, $http, $routeParams);
 }

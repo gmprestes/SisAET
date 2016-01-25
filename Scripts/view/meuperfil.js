@@ -61,7 +61,7 @@ function MeuPerfilCtrl($scope, $http) {
   }
 
   $scope.tipoComprovanteChange = function() {
-    $('#fileUploadArquivos').fileupload({
+    $('#fileUploadArquivosPerfil').fileupload({
       url: '/arquivo/save/' + $scope.tipoComprovante,
       dataType: 'json',
       pasteZone: null,

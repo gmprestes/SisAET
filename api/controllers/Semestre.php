@@ -49,10 +49,13 @@ class Semestre
     /**
      * @url GET /semestre/GetSemestresAssociado/$id
      */
-    public function GetSemestresAssociado()
+    public function GetSemestresAssociado($id)
     {
         $db = DB::getInstance();
-        $cursor = $db->DtoAuxilio->find(array('UserId' => $_SESSION['userid']));
+        $pessoa = $db->DtoPessoa->findOne(array('_id' => str_to_mongoid($id)));
+
+
+        $cursor = $db->DtoAuxilio->find(array('UserId' => $pessoa['UserId']));
         $idsSemestres = array();
         foreach ($cursor as $doc) {
             array_push($idsSemestres, str_to_mongoid($doc['SemestreId']));

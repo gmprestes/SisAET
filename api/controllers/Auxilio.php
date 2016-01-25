@@ -17,6 +17,60 @@ class Auxilio
     }
 
     /**
+     * @url GET /auxilio/GetAuxilio/$idSemestre/$idUser
+     */
+    public function GetAuxilio($idSemestre, $idUser)
+    {
+        if (!empty($idUser) && $idUser != 'undefined') {
+            $db = DB::getInstance();
+            $pessoa = $db->DtoPessoa->findOne(array('_id' => str_to_mongoid($idUser)));
+
+            $auxilio = $db->DtoAuxilio->findOne(array('SemestreId' => $idSemestre, 'UserId' => $pessoa['UserId']));
+            if (!empty($auxilio)) {
+                $auxilio['_id'] = mgid_to_string($auxilio['_id']);
+                $auxilio['DataDoPedido'] = mgdt_to_string($auxilio['DataDoPedido']);
+                $auxilio['DataConcessao'] = mgdt_to_string($auxilio['DataConcessao']);
+                //$auxilio['DataInicio'] = mgdt_to_string($auxilio['DataInicio']);
+                //$auxilio['DataTermino'] = mgdt_to_string($auxilio['DataTermino']);
+
+                for ($i = 0; $i < sizeof($auxilio['Disciplinas']); ++$i) {
+                    $auxilio['Disciplinas'][$i]['DataInicio'] = mgdt_to_string($auxilio['Disciplinas'][$i]['DataInicio']);
+                    $auxilio['Disciplinas'][$i]['DataTermino'] = mgdt_to_string($auxilio['Disciplinas'][$i]['DataTermino']);
+                }
+            } else {
+                $auxilio = array(
+
+                  'Concedido' => false,
+                  'SemestreId' => $id,
+                  'InstituicaoId' => '',
+                  'UserId' => $_SESSION['userid'],
+                  'Curso' => '',
+                  'Observacoes' => '',
+                  'DataDoPedido' => new MongoDate(),
+                  'DataConcessao' => new MongoDate(),
+                  'Disciplinas' => array(),
+                  'Turno' => 'Noite',
+                  'TransporteIda' => true,
+                  'TransporteVolta' => true,
+                  'DataInicio' => new MongoDate(),
+                  'DataTermino' => new MongoDate(),
+                  'DatasEncontrosPresenciais' => [],
+                  'Observacoes' => '',
+              );
+
+                $db->DtoAuxilio->insert($auxilio);
+                $auxilio['_id'] = mgid_to_string($auxilio['_id']);
+                $auxilio['DataDoPedido'] = mgdt_to_string($auxilio['DataDoPedido']);
+                $auxilio['DataConcessao'] = mgdt_to_string($auxilio['DataConcessao']);
+                //$auxilio['DataInicio'] = mgdt_to_string($auxilio['DataInicio']);
+                //$auxilio['DataTermino'] = mgdt_to_string($auxilio['DataTermino']);
+            }
+
+            return $auxilio;
+        }
+    }
+
+    /**
      * @url GET /auxilio/Get/$id
      */
     public function Get($id)

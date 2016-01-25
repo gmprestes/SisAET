@@ -1,7 +1,7 @@
 ﻿
 function InstituicoesListCtrl($scope, $http) {
   $scope.init = function() {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
@@ -11,7 +11,7 @@ function InstituicoesListCtrl($scope, $http) {
       }
     }).success(function(data, status) {
       $scope.instituicoes = data;
-      console.log(data);
+      //console.log(data);
 
       $('#tableInstituicoes').paginartable({
         tamPagina: 10
@@ -28,7 +28,7 @@ function InstituicoesListCtrl($scope, $http) {
   }
 
   $scope.excluirItem = function(id) {
-    var httpRequest = $http({
+    $http({
       method: 'GET',
       contentType: 'application/json; charset=utf-8',
       dataType: "json",
