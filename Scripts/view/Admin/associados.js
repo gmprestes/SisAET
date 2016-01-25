@@ -39,9 +39,9 @@ function AuxiliosAssociadoCtrl($scope, $http, $routeParams) {
       },
       url: '/api/semestre/GetSemestresAssociado/' + id
     }).success(function(data, status) {
+      console.log(data);
       $scope.semestres = data;
       $scope.auxilio.SemestreId = data[0]._id;
-
       $scope.getInstituicoes();
       $scope.getSemestre();
       $scope.getAuxilio();
@@ -275,7 +275,6 @@ function AssociadosListCtrl($scope, $http) {
       }
     }).success(function(data, status) {
       console.log("Buscou associados");
-      console.log(data);
       $scope.associados = data;
 
       $('#tableAssociados').paginartable({
