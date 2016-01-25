@@ -25,7 +25,14 @@ class Semestre
         $cursor = $db->DtoAuxilio->find(array('UserId' => $_SESSION['userid']));
         $idsSemestres = array();
         foreach ($cursor as $doc) {
+            try{
             array_push($idsSemestres, str_to_mongoid($doc['SemestreId']));
+          }
+          catch (Exception $e)
+          {
+
+          }
+
         }
 
         $cursor = $db->DtoSemestre->find(array('$or' => array(
