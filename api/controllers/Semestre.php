@@ -101,6 +101,7 @@ class Semestre
     {
         $db = DB::getInstance();
         $cursor = $db->DtoSemestre->find();
+        $cursor->sort(array('_id' => -1));
         $array = array();
         foreach ($cursor as $doc) {
             $doc['DataInicio'] = mgdt_to_string($doc['DataInicio']);

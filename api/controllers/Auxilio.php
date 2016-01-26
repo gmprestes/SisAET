@@ -41,9 +41,9 @@ class Auxilio
                 $auxilio = array(
 
                   'Concedido' => false,
-                  'SemestreId' => $id,
+                  'SemestreId' => $idSemestre,
                   'InstituicaoId' => '',
-                  'UserId' => $_SESSION['userid'],
+                  'UserId' => $pessoa['UserId'],
                   'Curso' => '',
                   'Observacoes' => '',
                   'DataDoPedido' => new MongoDate(),

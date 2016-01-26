@@ -1,0 +1,17 @@
+<script type="text/javascript" src="/Scripts/view/admin/report.js"></script>
+
+<div ng-controller="ReportAlunosCtrl">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Report Alunos
+
+      </h1>
+      <button type="button" class="btn btn-info navbar-right btnsTop" ng-click="baixar()" style="margin-bottom: 15px;">Baixar</button>
+      <div class="form-group col-lg-2">
+        <label>Semestre</label>
+        <select class="form-control" ng-model="SemestreId" ng-options="o._id as o.Nome for o in semestres">
+        </select>
+      </div>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>

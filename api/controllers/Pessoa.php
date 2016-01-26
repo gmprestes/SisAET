@@ -97,7 +97,7 @@ class Pessoa
         $list = array();
         $cursor = $db->DtoPessoa->find();
         $cursor->sort(array('Codigo' => 1));
-        $cursor->limit(15);
+        //$cursor->limit(15);
         foreach ($cursor as $doc) {
           $doc['DataNascimento'] = mgdt_to_string($doc['DataNascimento']);
           $doc['_id'] = mgid_to_string($doc['_id']);

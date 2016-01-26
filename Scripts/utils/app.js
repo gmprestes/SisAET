@@ -54,6 +54,10 @@ app.config(function($routeProvider, $locationProvider) {
       templateUrl: '/View/associados/edit.html'
     })
 
+    .when('/relatorio/alunos', {
+      templateUrl: '/View/report/alunos.html'
+    })
+
 
   // configure html5 to get links working on jsfiddle
   $locationProvider.html5Mode(false);

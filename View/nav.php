@@ -32,6 +32,9 @@
                                 <li ng-show="isAdmin">
                                     <a href="#/associados/list"><i class="fa fa-tags fa-fw"></i>Associados</a>
                                 </li>
+                                <li ng-show="isAdmin">
+                                   <a href="#/relatorio/alunos"><i class="fa fa-tags fa-fw"></i>Alunos Dias Semana</a>
+                               </li>
                                  <li style="display:none;">
                                     <a href="#/relatorios"><i class="fa fa-tags fa-fw"></i>Relatorios</a>
                                 </li>
